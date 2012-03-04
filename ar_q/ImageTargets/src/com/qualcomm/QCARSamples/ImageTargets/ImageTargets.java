@@ -757,7 +757,7 @@ public class ImageTargets extends Activity
     {
         super.onCreateOptionsMenu(menu);
                         
-        mDataSetMenuItem = menu.add("Switch to Tarmac dataset");
+        mDataSetMenuItem =
         menu.add("Toggle flash");
         menu.add("Trigger autofocus");
         
@@ -778,21 +778,8 @@ public class ImageTargets extends Activity
     /** Invoked when the user selects an item from the Menu */
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        if(item == mDataSetMenuItem)
-        {
-           switchDatasetAsap();
-           mIsStonesAndChipsDataSetActive = !mIsStonesAndChipsDataSetActive;
-           if (mIsStonesAndChipsDataSetActive)
-           {
-               item.setTitle("Switch to Tarmac dataset");
-           }
-           else
-           {
-               item.setTitle("Switch to StonesAndChips dataset");
-           }
-            
-        }
-        else if(item.getTitle().equals("Toggle flash"))
+
+        	if(item.getTitle().equals("Toggle flash"))
         {
             mFlash = !mFlash;
             boolean result = activateFlash(mFlash);
