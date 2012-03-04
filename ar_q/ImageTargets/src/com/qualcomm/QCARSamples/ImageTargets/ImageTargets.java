@@ -291,14 +291,17 @@ public class ImageTargets extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
     	final ProgressDialog dialog = new ProgressDialog(this);
-    	dialog.setMax(200);
-    	dialog.setIndeterminate(false);
-    	dialog.setMessage("DownLoad Target Files  ...");
-    	
     	
         DebugLog.LOGD("ImageTargets::onCreate");
         super.onCreate(savedInstanceState);
         
+        dialog.setMax(200);
+    	dialog.setIndeterminate(false);
+    	dialog.setMessage("DownLoad Target Files  ...");
+        
+    	Geometric geometric = new Geometric(this);
+    	geometric.checkMyLocation();
+    	
         // Set the splash screen image to display during initialization:
         mSplashScreenImageResource = R.drawable.splash_screen_image_targets;
         dialog.show();
