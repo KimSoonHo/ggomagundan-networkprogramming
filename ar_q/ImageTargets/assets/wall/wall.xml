@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <QCARConfig xsi:noNamespaceSchemaLocation="qcar_config.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Tracking>
-        <ImageTarget name="stones" size="247 173"/>
-        <ImageTarget name="chips" size="247 173"/>
+        <ImageTarget name="wall" size="300 225"/>
+        <ImageTarget name="wall1" size="1024 768"/>
+        <ImageTarget name="wall2" size="384 512"/>
     </Tracking>
 </QCARConfig>

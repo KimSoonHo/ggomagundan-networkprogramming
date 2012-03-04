@@ -24,6 +24,7 @@
       'android:theme="@android:style/Theme.NoTitleBar.Fullscreen"' ensures
       that the application starts in full screen mode without a title bar.
     -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:icon="@drawable/icon_vuforia"
         android:label="@string/app_name"

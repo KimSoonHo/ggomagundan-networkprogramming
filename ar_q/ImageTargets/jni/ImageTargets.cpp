@@ -14,6 +14,8 @@
 
 #include <jni.h>
 #include <android/log.h>
+
+
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -202,6 +204,11 @@ Java_com_qualcomm_QCARSamples_ImageTargets_ImageTargets_loadTrackerData(JNIEnv *
         LOG("Failed to create a new tracking data.");
         return 0;
     }
+
+
+
+
+    __android_log_print(ANDROID_LOG_DEBUG, "PBS", "Load xml");
 
     // Load the data sets:
     if (!dataSetStonesAndChips->load("/sdcard/ar_xml/wall.xml", QCAR::DataSet::STORAGE_ABSOLUTE))

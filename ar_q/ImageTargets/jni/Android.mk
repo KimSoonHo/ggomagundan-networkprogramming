@@ -18,8 +18,16 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := QCAR-prebuilt
-LOCAL_SRC_FILES = ../../../build/lib/$(TARGET_ARCH_ABI)/libQCAR.so
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../build/include
+
+# For BI Computer
+# LOCAL_SRC_FILES = ../../../build/lib/$(TARGET_ARCH_ABI)/libQCAR.so
+# LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../build/include
+
+# For My Lab
+LOCAL_SRC_FILES = ../../../AR/build/lib/$(TARGET_ARCH_ABI)/libQCAR.so
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../AR/build/include
+
+
 include $(PREBUILT_SHARED_LIBRARY)
 
 #-----------------------------------------------------------------------------
@@ -64,8 +72,7 @@ endif
 # C ***AND*** C++ source files.
 #
 # NOTE: flag "-Wno-write-strings" removes warning about deprecated conversion
-#       from string constant to ‘char*’
-
+#       from string constant to ë©µhar*ï¿½
 LOCAL_CFLAGS := -Wno-write-strings $(OPENGLES_DEF)
 
 # The list of additional linker flags to be used when building your

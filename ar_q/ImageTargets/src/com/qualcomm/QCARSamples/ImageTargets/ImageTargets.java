@@ -18,19 +18,24 @@ import java.util.Vector;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.qualcomm.QCAR.QCAR;
@@ -266,20 +271,72 @@ public class ImageTargets extends Activity
     }
 
     
+    public boolean isCanInternet() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+	    NetworkInfo i = cm.getActiveNetworkInfo();
+	    if (i == null)
+	      return false;
+	    if (!i.isConnected())
+	      return false;
+	    if (!i.isAvailable())
+	      return false;
+	    return true;
+
+	}
+    
     /** Called when the activity first starts or the user navigates back
      * to an activity. */
     protected void onCreate(Bundle savedInstanceState)
     {
+    	final ProgressDialog dialog = new ProgressDialog(this);
+    	dialog.setMax(200);
+    	dialog.setIndeterminate(false);
+    	dialog.setMessage("DownLoad Target Files  ...");
+    	
+    	
         DebugLog.LOGD("ImageTargets::onCreate");
         super.onCreate(savedInstanceState);
         
         // Set the splash screen image to display during initialization:
         mSplashScreenImageResource = R.drawable.splash_screen_image_targets;
+        dialog.show();
         
         // Load any sample specific textures:  
         mTextures = new Vector<Texture>();
         loadTextures();
+        Log.d("PBS","Save the xml,dat file from internet");
         
+        boolean isOnline = isCanInternet();
+        if(isOnline == false){
+        	
+        	AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
+             
+            alertDialog.setMessage("Please Connect Internet!!");  
+            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {  
+              public void onClick(DialogInterface dialog, int which) {  
+                return;  
+            } });
+            dialog.dismiss();
+            alertDialog.show();
+        	
+        }else{
+        	
+	       new FileDownload().DownloadFromUrl("http://117.17.158.173/wall.dat", "wall.dat");
+	       new FileDownload().DownloadFromUrl("http://117.17.158.173/wall.xml", "wall.xml");
+	       new Thread() {
+	        	public void run() {
+	        	try{
+	        	// just doing some long operation
+	        	sleep(2000);
+	        	} catch (Exception e) { }
+	        	
+	        	dialog.dismiss(); }
+	        	}.start();
+	        
+	       
+        }
         // Query the QCAR initialization flags:
         mQCARFlags = getInitializationFlags();
         

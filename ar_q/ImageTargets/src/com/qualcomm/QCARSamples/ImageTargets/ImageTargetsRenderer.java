@@ -18,6 +18,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 import com.qualcomm.QCAR.QCAR;
 
@@ -42,6 +43,8 @@ public class ImageTargetsRenderer implements GLSurfaceView.Renderer
 
         // Call native function to initialize rendering:
         initRendering();
+        
+        
         
         // Call QCAR function to (re)initialize rendering after first use
         // or after OpenGL ES context was lost (e.g. after onPause/onResume):
