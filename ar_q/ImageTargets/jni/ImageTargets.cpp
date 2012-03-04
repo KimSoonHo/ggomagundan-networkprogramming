@@ -77,8 +77,8 @@ QCAR::Matrix44F projectionMatrix;
 // Constants:
 static const float kObjectScale = 3.f;
 
-QCAR::DataSet* dataSetStonesAndChips    = 0;
-QCAR::DataSet* dataSetTarmac            = 0;
+QCAR::DataSet* targetDataSets    = 0;
+
 
 bool switchDataSetAsap          = false;
 
@@ -95,23 +95,16 @@ class ImageTargets_UpdateCallback : public QCAR::UpdateCallback
             QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
             QCAR::ImageTracker* imageTracker = static_cast<QCAR::ImageTracker*>(
                 trackerManager.getTracker(QCAR::Tracker::IMAGE_TRACKER));
-            if (imageTracker == 0 || dataSetStonesAndChips == 0 || dataSetTarmac == 0 ||
+            if (imageTracker == 0 || targetDataSets == 0 ||
                 imageTracker->getActiveDataSet() == 0)
             {
                 LOG("Failed to switch data set.");
                 return;
             }
             
-            if (imageTracker->getActiveDataSet() == dataSetStonesAndChips)
-            {
-                imageTracker->deactivateDataSet(dataSetStonesAndChips);
-                imageTracker->activateDataSet(dataSetTarmac);
-            }
-            else
-            {
-                imageTracker->deactivateDataSet(dataSetTarmac);
-                imageTracker->activateDataSet(dataSetStonesAndChips);
-            }
+            imageTracker->activateDataSet(targetDataSets);
+
+
         }
     }
 };
@@ -191,19 +184,14 @@ Java_com_qualcomm_QCARSamples_ImageTargets_ImageTargets_loadTrackerData(JNIEnv *
     }
 
     // Create the data sets:
-    dataSetStonesAndChips = imageTracker->createDataSet();
-    if (dataSetStonesAndChips == 0)
+    targetDataSets = imageTracker->createDataSet();
+    if (targetDataSets == 0)
     {
         LOG("Failed to create a new tracking data.");
         return 0;
     }
 
-    dataSetTarmac = imageTracker->createDataSet();
-    if (dataSetTarmac == 0)
-    {
-        LOG("Failed to create a new tracking data.");
-        return 0;
-    }
+
 
 
 
@@ -211,20 +199,16 @@ Java_com_qualcomm_QCARSamples_ImageTargets_ImageTargets_loadTrackerData(JNIEnv *
     __android_log_print(ANDROID_LOG_DEBUG, "PBS", "Load xml");
 
     // Load the data sets:
-    if (!dataSetStonesAndChips->load("/sdcard/ar_xml/wall.xml", QCAR::DataSet::STORAGE_ABSOLUTE))
+    if (!targetDataSets->load("/sdcard/ar_xml/wall.xml", QCAR::DataSet::STORAGE_ABSOLUTE))
     {
         LOG("Failed to load data set.");
         return 0;
     }
 
-    if (!dataSetTarmac->load("Tarmac.xml", QCAR::DataSet::STORAGE_APPRESOURCE))
-    {
-        LOG("Failed to load data set.");
-        return 0;
-    }
+
 
     // Activate the data set:
-    if (!imageTracker->activateDataSet(dataSetStonesAndChips))
+    if (!imageTracker->activateDataSet(targetDataSets))
     {
         LOG("Failed to activate data set.");
         return 0;
@@ -251,45 +235,27 @@ Java_com_qualcomm_QCARSamples_ImageTargets_ImageTargets_destroyTrackerData(JNIEn
         return 0;
     }
     
-    if (dataSetStonesAndChips != 0)
+    if (targetDataSets != 0)
     {
-        if (imageTracker->getActiveDataSet() == dataSetStonesAndChips &&
-            !imageTracker->deactivateDataSet(dataSetStonesAndChips))
+        if (imageTracker->getActiveDataSet() == targetDataSets &&
+            !imageTracker->deactivateDataSet(targetDataSets))
         {
             LOG("Failed to destroy the tracking data set StonesAndChips because the data set "
                 "could not be deactivated.");
             return 0;
         }
 
-        if (!imageTracker->destroyDataSet(dataSetStonesAndChips))
+        if (!imageTracker->destroyDataSet(targetDataSets))
         {
             LOG("Failed to destroy the tracking data set StonesAndChips.");
             return 0;
         }
 
         LOG("Successfully destroyed the data set StonesAndChips.");
-        dataSetStonesAndChips = 0;
+        targetDataSets = 0;
     }
 
-    if (dataSetTarmac != 0)
-    {
-        if (imageTracker->getActiveDataSet() == dataSetTarmac &&
-            !imageTracker->deactivateDataSet(dataSetTarmac))
-        {
-            LOG("Failed to destroy the tracking data set Tarmac because the data set "
-                "could not be deactivated.");
-            return 0;
-        }
 
-        if (!imageTracker->destroyDataSet(dataSetTarmac))
-        {
-            LOG("Failed to destroy the tracking data set Tarmac.");
-            return 0;
-        }
-
-        LOG("Successfully destroyed the data set Tarmac.");
-        dataSetTarmac = 0;
-    }
 
     return 1;
 }
@@ -433,8 +399,7 @@ Java_com_qualcomm_QCARSamples_ImageTargets_ImageTargetsRenderer_renderFrame(JNIE
 }
 
 
-void
-configureVideoBackground()
+void configureVideoBackground()
 {
     // Get the default video mode:
     QCAR::CameraDevice& cameraDevice = QCAR::CameraDevice::getInstance();
