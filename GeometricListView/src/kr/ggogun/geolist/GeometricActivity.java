@@ -120,9 +120,10 @@ public class GeometricActivity extends Activity {
 				item = totalList.get(position);
 				
 				AlertDialog.Builder alert = new AlertDialog.Builder(GeometricActivity.this);
-				alert.setTitle(item.get(NAMEKEY).toString());
-				alert.setMessage(item.get(NAMEKEY).toString()+ "?�결?");
-				alert.setPositiveButton("?�인",
+				alert.setIcon(R.drawable.happy);
+				alert.setTitle(item.get(NAMEKEY).toString() + " Connect?");
+				alert.setMessage(item.get(NAMEKEY).toString()+ " 연결?");
+				alert.setPositiveButton("확인",
 	                    new DialogInterface.OnClickListener() {
 	                        public void onClick(DialogInterface dialog, int id) {
 
@@ -185,7 +186,8 @@ public class GeometricActivity extends Activity {
     	
     	
     	if(currentSize+5 > maxProgess){
-    		AlertDialog alert = new AlertDialog.Builder(this)    		
+    		AlertDialog alert = new AlertDialog.Builder(this)
+    		.setIcon(R.drawable.happy)
     		.setTitle("Exceed MAX List")
     		.setMessage("If you want more List, Move the SeekBar")
     		.setPositiveButton( "OK", new DialogInterface.OnClickListener()
