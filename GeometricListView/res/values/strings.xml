@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Network_testActivity!</string>
+    <string name="app_name">Geometric_ListView</string>
+    <string name="title">Geometric Information</string>
+    <string name="more">Load More Geo</string>
+</resources>
