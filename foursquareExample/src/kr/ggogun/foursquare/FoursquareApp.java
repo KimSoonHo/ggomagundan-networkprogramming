@@ -46,6 +46,7 @@ public class FoursquareApp {
 		mSession = new FoursquareSession(context);
 
 		mAccessToken = mSession.getAccessToken();
+		Log.d("PBS","token is " + mAccessToken);
 
 		mTokenUrl = TOKEN_URL + "&client_id=" + clientId + "&client_secret=" + clientSecret
 		+ "&redirect_uri=" + CALLBACK_URL;
@@ -212,19 +213,22 @@ public class FoursquareApp {
 			JSONArray groups = (JSONArray) jsonObj.getJSONObject("response").getJSONArray("groups");
 
 			int length = groups.length();
-
+			
 			if (length > 0) {
 				for (int i = 0; i < length; i++) {
 					JSONObject group = (JSONObject) groups.get(i);
 					JSONArray items = (JSONArray) group.getJSONArray("items");
 
 					int ilength = items.length();
+					Log.d("PBS","Item length " + ilength);
+					
 
 					for (int j = 0; j < ilength; j++) {
+						Log.d("PBS","j is " + j);
 						JSONObject item = (JSONObject) items.get(j);
 
 						FsqVenue venue = new FsqVenue();
-
+						
 						venue.id = item.getString("id");
 						venue.name = item.getString("name");
 
@@ -236,11 +240,15 @@ public class FoursquareApp {
 						loc.setLongitude(Double.valueOf(location.getString("lng")));
 
 						venue.location = loc;
-						venue.address = location.getString("address");
+//						Log.d("PBS",location.getJSONObject("address"));
+//						if(location.getString("address")!=null)
+//						venue.address = location.getString("address");
 						venue.distance = location.getInt("distance");
+						Log.d("PBS","distance is " + location.getInt("distance"));
 						venue.herenow = item.getJSONObject("hereNow").getInt("count");
 						venue.type = group.getString("type");
 
+						
 						venueList.add(venue);
 					}
 				}
