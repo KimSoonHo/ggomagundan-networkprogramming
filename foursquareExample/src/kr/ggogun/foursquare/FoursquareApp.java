@@ -31,7 +31,7 @@ public class FoursquareApp {
 	private ProgressDialog mProgress;
 	private String mTokenUrl;
 	private String mAccessToken;
-
+	private int	countOfData;
 	/**
 	 * Callback url, as set in 'Manage OAuth Costumers' page (https://developer.foursquare.com/)
 	 */
@@ -221,7 +221,7 @@ public class FoursquareApp {
 
 					int ilength = items.length();
 					Log.d("PBS","Item length " + ilength);
-					
+					countOfData = ilength;
 
 					for (int j = 0; j < ilength; j++) {
 						Log.d("PBS","j is " + j);
@@ -288,5 +288,9 @@ public class FoursquareApp {
 	public interface FsqAuthListener {
 		public abstract void onSuccess();
 		public abstract void onFail(String error);
+	}
+
+	public CharSequence getCountData() {
+		return "Count : " + countOfData;
 	}
 }

@@ -1,9 +1,13 @@
 package kr.ggogun.foursquare;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import android.widget.BaseAdapter;
@@ -18,6 +22,8 @@ import java.util.ArrayList;
 public class NearbyAdapter extends BaseAdapter {
 	private ArrayList<FsqVenue> mVenueList;
 	private LayoutInflater mInflater;
+	
+	
 
 	public NearbyAdapter(Context c) {
 		mInflater = LayoutInflater.from(c);
@@ -48,11 +54,11 @@ public class NearbyAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 
 			holder.mNameTxt = (TextView) convertView.findViewById(R.id.tv_name);
-			holder.mAddressTxt = (TextView) convertView.findViewById(R.id.tv_address);
-			holder.mHereNowTxt = (TextView) convertView.findViewById(R.id.tv_here_now);
+			//holder.mAddressTxt = (TextView) convertView.findViewById(R.id.tv_address);
+			//holder.mHereNowTxt = (TextView) convertView.findViewById(R.id.tv_here_now);
 			holder.mDistanceTxt = (TextView) convertView.findViewById(R.id.tv_distance);
 			holder.mRibbonImg = (ImageView) convertView.findViewById(R.id.iv_ribbon);
-
+			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -61,12 +67,12 @@ public class NearbyAdapter extends BaseAdapter {
 		FsqVenue venue = mVenueList.get(position);
 
 		holder.mNameTxt.setText(venue.name);
-		holder.mAddressTxt.setText(venue.address);
-		holder.mHereNowTxt.setText("(" + String.valueOf(venue.herenow) + " people here)");
+	//	holder.mAddressTxt.setText(venue.address);
+	//	holder.mHereNowTxt.setText("(" + String.valueOf(venue.herenow) + " people here)");
 		holder.mDistanceTxt.setText(formatDistance(venue.distance));
 
 		holder.mRibbonImg.setVisibility((venue.type.equals("trending")) ? View.VISIBLE : View.INVISIBLE);
-
+		
 		return convertView;
 	}
 
