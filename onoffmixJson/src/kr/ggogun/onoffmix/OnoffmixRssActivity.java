@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import kr.ggogun.onoffmix.data.JSONItem;
 
@@ -17,12 +20,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class OnoffmixRssActivity extends Activity {
@@ -57,7 +63,7 @@ public class OnoffmixRssActivity extends Activity {
 			
 			for(int i =0;i < ja.length();i++){
 				mJsonList.add(new JSONItem(ja.getJSONObject(i)));
-				Log.d("PBS",ja.getJSONObject(i).getString("idx") + " ==>   " + ja.getJSONObject(i).getString("title") );
+				//Log.d("PBS",ja.getJSONObject(i).getString("idx") + " ==>   " + ja.getJSONObject(i).getString("title") );
 			}
 			
 		} catch (Exception e) {
@@ -66,21 +72,53 @@ public class OnoffmixRssActivity extends Activity {
 		}
 		
 	
-		mJsonList.add(new JSONItem());
-		mJsonList.add(new JSONItem());
-		mJsonList.add(new JSONItem());
-		mJsonList.add(new JSONItem());
-		mJsonList.add(new JSONItem());
-		mJsonList.add(new JSONItem());
+		
 		mAdapter.setData(mJsonList);
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				
+				  	JSONItem data = mJsonList.get(position);
+	                
+	                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(data.eventurl));
+	                
+	                startActivity(intent);
+				
+			}
+		
+		
+		
+		});
+			
+			
+		
+		
+			
+			
+		
 	}
 
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+         //super.onListItemClick(l, v, pzosition, id);
+         
+         JSONItem data = mJsonList.get(position);
+         
+         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(data.eventurl));
+         
+         startActivity(intent);
+ }
+	
+	
+	
 	public String readOnOffMixFeed(int num) {
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(
-				"http://onoffmix.com/_/xmlProxy/xmlProxy.ofm?url=api.onoffmix.com/event/list&output=json&isExposed=1&pageRows=8&recruitEndDateTimeGT=2012-03-20+20:44:36&sort=isSiteRecommend&page="+num);
+				"http://onoffmix.com/_/xmlProxy/xmlProxy.ofm?url=api.onoffmix.com/event/list&output=json&isExposed=1&pageRows=8&recruitEndDateTimeGT="
+						+ getCurrentTime() + "&sort=isSiteRecommend&page="+num);
 		try {
 			HttpResponse response = client.execute(httpGet);
 			StatusLine statusLine = response.getStatusLine();
@@ -105,5 +143,13 @@ public class OnoffmixRssActivity extends Activity {
 			e.printStackTrace();
 		}
 		return "["+builder.toString()+"]";
+	}
+
+	private String getCurrentTime() {
+		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy-MM-dd+HH:mm:ss", Locale.KOREA );
+		Date currentTime = new Date ( );
+		String dTime = formatter.format ( currentTime );
+		return dTime;
+				
 	}
 }

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 
 public class JSONItem {
+		public String eventId;
 		public String bannerUrl;
         public String title;
         public String location;
@@ -18,7 +19,7 @@ public class JSONItem {
         public String totalAttend;
         
         public JSONItem(){
-        	
+        	eventId = "";
         	title = "this is title";
             location = "this is location";
             conferStartTime="startITme";
@@ -31,9 +32,13 @@ public class JSONItem {
             totalAttend="totla";
         	
         }
+        
+        JSONObject json = new JSONObject();
 
 		public JSONItem(JSONObject jsonObject) throws JSONException {
 			super();
+			eventId=jsonObject.getString("eventIdx");
+			bannerUrl = jsonObject.getString("bannerUrl");
 			title = jsonObject.getString("title");
 			location = jsonObject.getString("location");
 			conferStartTime = jsonObject.getString("eventStartDateTime");

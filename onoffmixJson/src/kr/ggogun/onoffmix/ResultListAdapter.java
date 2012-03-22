@@ -1,11 +1,17 @@
 package kr.ggogun.onoffmix;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
-
-import org.json.JSONObject;
 
 import kr.ggogun.onoffmix.data.JSONItem;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +58,7 @@ public class ResultListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 
 			holder.mTitle = (TextView) convertView.findViewById(R.id.title);
-			holder.mIsFree = (TextView) convertView.findViewById(R.id.isfree);
+			holder.mIsFree = (ImageView) convertView.findViewById(R.id.isfree);
 			holder.mDuring = (TextView) convertView.findViewById(R.id.schedule);
 			holder.mRecuit = (TextView) convertView.findViewById(R.id.recuitday);
 			holder.mLocation = (TextView) convertView.findViewById(R.id.location);
@@ -67,17 +73,36 @@ public class ResultListAdapter extends BaseAdapter {
 		JSONItem jsonList = mJsonList.get(position);
 		JSONItem jsonitem = (JSONItem)getItem(position); 
 		holder.mTitle.setText(jsonList.title);
-		if((jsonitem.isFree).equals("y")){
-			holder.mIsFree.setText("FREE");
+		if((jsonitem.isFree).equals("n")){
+			holder.mIsFree.setImageResource(R.drawable.paid);
 		}else{
-			holder.mIsFree.setText("PAID");
+			holder.mIsFree.setImageResource(R.drawable.free);
 		}
 		
-		holder.mDuring.setText(jsonitem.conferStartTime + " ~ " + jsonitem.conferEndtime);
+		holder.mDuring.setText(jsonitem.conferStartTime + " \n     ~ " + jsonitem.conferEndtime);
 		holder.mRecuit.setText(jsonitem.showStartTime + " ~ " + jsonitem.showEndTime);
 		holder.mLocation.setText(jsonList.location);
 		holder.mPeople.setText(jsonitem.currentAttend + "/" + jsonitem.totalAttend);
-	//	holder.mEventImg.setImage();
+		
+		URL url;
+		try {
+		//	Log.d("PBS","Banner URL : " + jsonitem.bannerUrl);
+			url = new URL(jsonitem.bannerUrl);
+			
+			URLConnection conn =
+					 url.openConnection();
+					conn.connect();
+					BufferedInputStream  bis = new BufferedInputStream(conn.getInputStream());
+					Bitmap bm = BitmapFactory.decodeStream(bis); bis.close();
+					holder.mEventImg.setImageBitmap(bm); 
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 		return convertView;
@@ -88,7 +113,7 @@ public class ResultListAdapter extends BaseAdapter {
 	
 	static class ViewHolder {
 		TextView mTitle;
-		TextView mIsFree;
+		ImageView mIsFree;
 		TextView mDuring;
 		TextView mRecuit;
 		TextView mLocation;
