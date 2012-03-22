@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, OnoffmixRssActivity!</string>
-    <string name="app_name">OnoffmixRss</string>
+    <string name="title">OnOffMix 행사 알림판</string>
+    <string name="app_name">OnOffMix(온오프믹스)</string>
 
 </resources>

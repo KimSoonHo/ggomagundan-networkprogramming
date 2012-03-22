@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import kr.ggogun.ads.YYGAds;
 import kr.ggogun.onoffmix.data.JSONItem;
 
 import org.apache.http.HttpEntity;
@@ -21,36 +22,45 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class OnoffmixRssActivity extends Activity {
 	
 
-	private ListView mListView;// = (ListView)findViewById(R.id.list);
-	//private EditText txt = (EditText) findViewById(R.id.text);
+	private ListView mListView;
+	private ImageView adsBox;
 	
+	private int random;
+	private ResultListAdapter mAdapter       ;
+	private ArrayList<JSONItem> mJsonList   ;
 	
-	private ResultListAdapter mAdapter       ;// = new ResultListAdapter(this);
-	private ArrayList<JSONItem> mJsonList   ;//  = new ArrayList<JSONItem>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+		setTitle(R.string.title);
 		mListView = (ListView)findViewById(R.id.list);
-		//private EditText txt = (EditText) findViewById(R.id.text);
+		adsBox = (ImageView) findViewById(R.id.ads);
 		mAdapter        = new ResultListAdapter(this);
 		mJsonList     = new ArrayList<JSONItem>();
 		
+		Toast.makeText(this,"Loading ......", Toast.LENGTH_LONG).show();
+    	
 		for(int j =0 ;j < 8;j++){
 		String readOnoffMix = readOnOffMixFeed(j+1);
 		try {
@@ -61,6 +71,8 @@ public class OnoffmixRssActivity extends Activity {
 			JSONArray ja = json.getJSONArray("eventList");
 			
 			
+			
+		        	
 			for(int i =0;i < ja.length();i++){
 				mJsonList.add(new JSONItem(ja.getJSONObject(i)));
 				//Log.d("PBS",ja.getJSONObject(i).getString("idx") + " ==>   " + ja.getJSONObject(i).getString("title") );
@@ -72,7 +84,21 @@ public class OnoffmixRssActivity extends Activity {
 		}
 		
 	
-		
+		YYGAds ad = new YYGAds(adsBox);
+		random = ad.getRandom();
+		adsBox.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent intent = null;
+				if(random ==1){
+					intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://sanchaeexpo.co.kr/"));
+				}else if(random == 2){
+					intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://jihun.yyg.go.kr/home/jihun/artfestival/outline"));
+				}
+				startActivity(intent);
+				
+			}
+		});
 		mAdapter.setData(mJsonList);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener( new OnItemClickListener() {
@@ -96,6 +122,9 @@ public class OnoffmixRssActivity extends Activity {
 			
 		
 		
+        
+       
+   
 			
 			
 		
@@ -116,6 +145,8 @@ public class OnoffmixRssActivity extends Activity {
 	public String readOnOffMixFeed(int num) {
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient();
+		
+		
 		HttpGet httpGet = new HttpGet(
 				"http://onoffmix.com/_/xmlProxy/xmlProxy.ofm?url=api.onoffmix.com/event/list&output=json&isExposed=1&pageRows=8&recruitEndDateTimeGT="
 						+ getCurrentTime() + "&sort=isSiteRecommend&page="+num);
@@ -152,4 +183,6 @@ public class OnoffmixRssActivity extends Activity {
 		return dTime;
 				
 	}
+	
+	
 }

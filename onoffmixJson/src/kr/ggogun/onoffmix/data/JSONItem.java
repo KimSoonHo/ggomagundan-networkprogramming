@@ -41,10 +41,10 @@ public class JSONItem {
 			bannerUrl = jsonObject.getString("bannerUrl");
 			title = jsonObject.getString("title");
 			location = jsonObject.getString("location");
-			conferStartTime = jsonObject.getString("eventStartDateTime");
-			conferEndtime = jsonObject.getString("eventEndDateTime");
-			showStartTime=jsonObject.getString("recruitStartDateTime");
-			showEndTime=jsonObject.getString("recruitEndDateTime");
+			conferStartTime = jsonObject.getString("eventStartDateTime").substring(0, 16);
+			conferEndtime = jsonObject.getString("eventEndDateTime").substring(0, 16);
+			showStartTime=jsonObject.getString("recruitStartDateTime").substring(0, 16);
+			showEndTime=jsonObject.getString("recruitEndDateTime").substring(0, 16);
 			isFree=jsonObject.getString("isFree");
 			eventurl=jsonObject.getString("eventUrl");
 			currentAttend=jsonObject.getString("totalAttend");

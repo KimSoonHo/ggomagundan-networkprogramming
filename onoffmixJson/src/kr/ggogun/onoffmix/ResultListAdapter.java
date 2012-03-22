@@ -53,7 +53,7 @@ public class ResultListAdapter extends BaseAdapter {
 		ViewHolder holder;
 
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.test, null);
+			convertView = mInflater.inflate(R.layout.jsonitemview, null);
 
 			holder = new ViewHolder();
 

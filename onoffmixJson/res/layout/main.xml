@@ -13,8 +13,11 @@
         android:layout_width="fill_parent"
                   android:id="@+id/home_layout"
                   android:orientation="vertical"
-                  android:layout_height="550dp">
+                  android:layout_height="520dp">
 
+        
+        
+        
         <ListView
             android:id="@+id/list"
             android:layout_width="fill_parent"
@@ -23,13 +26,15 @@
         </ListView>
 
       </LinearLayout>
+ 
+    
+    <ImageView
+        android:id="@+id/ads"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         >
 
-    <TextView
-         android:id="@+id/home_layout"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:text="Load more">
-     </TextView>
+     </ImageView>
 	
 </LinearLayout>
 
