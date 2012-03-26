@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 
 public class NearbyAdapter extends BaseAdapter {
-	private ArrayList<FsqVenue> mVenueList;
+	private ArrayList<JSONItem> mVenueList;
 	private LayoutInflater mInflater;
 	
 	
@@ -29,7 +29,7 @@ public class NearbyAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(c);
 	}
 
-	public void setData(ArrayList<FsqVenue> poolList) {
+	public void setData(ArrayList<JSONItem> poolList) {
 		mVenueList = poolList;
 	}
 
@@ -64,7 +64,7 @@ public class NearbyAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		FsqVenue venue = mVenueList.get(position);
+		JSONItem venue = mVenueList.get(position);
 
 		holder.mNameTxt.setText(venue.name);
 	//	holder.mAddressTxt.setText(venue.address);

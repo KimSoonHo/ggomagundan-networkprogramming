@@ -4,12 +4,9 @@ import java.util.ArrayList;
 
 import kr.ggogun.daummap.DaumMapActivity;
 import kr.ggogun.foursquare.FoursquareApp.FsqAuthListener;
-import android.R.bool;
+import kr.ggogun.googlemap.GoogleMapActivity;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +36,7 @@ public class FoursquareExampleActivity extends Activity {
 	 	private FoursquareApp mFsqApp;
 	    private ListView mListView;
 	    private NearbyAdapter mAdapter;
-	    private ArrayList<FsqVenue> mNearbyList;
+	    private ArrayList<JSONItem> mNearbyList;
 	    private ProgressDialog mProgress;
 	    private SeekBar seekBar;
 	    private TextView countOfData;
@@ -67,7 +64,7 @@ public class FoursquareExampleActivity extends Activity {
 	        mFsqApp         = new FoursquareApp(this, CLIENT_ID, CLIENT_SECRET);
 	 
 	        mAdapter        = new NearbyAdapter(this);
-	        mNearbyList     = new ArrayList<FsqVenue>();
+	        mNearbyList     = new ArrayList<JSONItem>();
 	        mProgress       = new ProgressDialog(this);
 	 
 	        mProgress.setMessage("Loading data ...");
@@ -93,7 +90,7 @@ public class FoursquareExampleActivity extends Activity {
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
 					
-					FsqVenue tmp = mNearbyList.get(position);
+					JSONItem tmp = mNearbyList.get(position);
 			
 					String[] mapList = {"Google", "Daum"};
 					
@@ -112,6 +109,7 @@ public class FoursquareExampleActivity extends Activity {
 //					dialog.show();
 					
 				//	if(isDaum == true){
+					if(position %2 == 0){
 						double[] loc = {tmp.location.getLatitude(), tmp.location.getLongitude()};
 						 Log.d("PBS","Send  " +  Double.toString(loc[0]) + ",  " + Double.toString(loc[1]));
 						Intent intent =  new Intent(FoursquareExampleActivity.this, DaumMapActivity.class);
@@ -119,7 +117,14 @@ public class FoursquareExampleActivity extends Activity {
 						intent.putExtra("location", loc);
 						startActivity(intent);
 					//}
-					
+					}else{
+						double[] loc = {tmp.location.getLatitude(), tmp.location.getLongitude()};
+						 Log.d("PBS","Send  " +  Double.toString(loc[0]) + ",  " + Double.toString(loc[1]));
+						Intent intent =  new Intent(FoursquareExampleActivity.this, GoogleMapActivity.class);
+						intent.putExtra("location", loc);
+						startActivity(intent);
+					}
+				
 					
 					
 				}

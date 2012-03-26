@@ -2,7 +2,7 @@ package kr.ggogun.foursquare;
 
 import android.location.Location;
 
-public class FsqVenue {
+public class JSONItem {
 	public String id;
 	public String name;
 	public String address;

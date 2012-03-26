@@ -50,14 +50,6 @@ public class DaumMapActivity extends Activity
         linearLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         
-        TextView textView = new TextView(this);
-        textView.setText("Press MENU button!");
-        textView.setTextSize(18.0f);
-        textView.setGravity(Gravity.CENTER);
-        textView.setBackgroundColor(Color.DKGRAY);
-        textView.setTextColor(Color.WHITE);
-        
-        linearLayout.addView(textView);
         
         mapView = new MapView(this);
 

@@ -190,8 +190,8 @@ public class FoursquareApp {
 		mDialog.show();
 	}
 
-	public ArrayList<FsqVenue> getNearby(double latitude, double longitude) throws Exception {
-		ArrayList<FsqVenue> venueList = new ArrayList<FsqVenue>();
+	public ArrayList<JSONItem> getNearby(double latitude, double longitude) throws Exception {
+		ArrayList<JSONItem> venueList = new ArrayList<JSONItem>();
 
 		try {
 			String ll = String.valueOf(latitude) + "," + String.valueOf(longitude);
@@ -227,7 +227,7 @@ public class FoursquareApp {
 						Log.d("PBS","j is " + j);
 						JSONObject item = (JSONObject) items.get(j);
 
-						FsqVenue venue = new FsqVenue();
+						JSONItem venue = new JSONItem();
 						
 						venue.id = item.getString("id");
 						venue.name = item.getString("name");
