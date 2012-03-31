@@ -21,7 +21,8 @@
         </activity>
         <activity android:name="kr.ggogun.daummap.DaumMapActivity"></activity>
         <activity android:name="kr.ggogun.googlemap.GoogleMapActivity"></activity>
-        <uses-library android:name="com.google.android.maps" />
+        
+        <activity android:name="kr.ggogun.navermap.NaverMapActivity"></activity><uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>

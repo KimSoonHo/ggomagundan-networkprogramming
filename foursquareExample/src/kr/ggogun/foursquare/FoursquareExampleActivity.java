@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.ggogun.daummap.DaumMapActivity;
 import kr.ggogun.foursquare.FoursquareApp.FsqAuthListener;
 import kr.ggogun.googlemap.GoogleMapActivity;
+import kr.ggogun.navermap.NaverMapActivity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -92,7 +93,7 @@ public class FoursquareExampleActivity extends Activity {
 					
 					JSONItem tmp = mNearbyList.get(position);
 			
-					String[] mapList = {"Google", "Daum"};
+					String[] mapList = {"Daum", "Google", "Naver"};
 					
 //					Builder dialog = new AlertDialog.Builder(FoursquareExampleActivity.this);
 //					dialog.setTitle("Select Map");
@@ -107,25 +108,19 @@ public class FoursquareExampleActivity extends Activity {
 //					});
 //
 //					dialog.show();
-					
-				//	if(isDaum == true){
-					if(position %2 == 0){
-						double[] loc = {tmp.location.getLatitude(), tmp.location.getLongitude()};
-						 Log.d("PBS","Send  " +  Double.toString(loc[0]) + ",  " + Double.toString(loc[1]));
-						Intent intent =  new Intent(FoursquareExampleActivity.this, DaumMapActivity.class);
-						
-						intent.putExtra("location", loc);
-						startActivity(intent);
-					//}
+					Intent intent;
+					double[] loc = {tmp.location.getLatitude(), tmp.location.getLongitude()};
+					 Log.d("PBS","Send  " +  Double.toString(loc[0]) + ",  " + Double.toString(loc[1]));
+					if(position %3 == 0){
+						intent =  new Intent(FoursquareExampleActivity.this, DaumMapActivity.class);
+					}else if(position%3 ==1){
+						intent =  new Intent(FoursquareExampleActivity.this, GoogleMapActivity.class);
 					}else{
-						double[] loc = {tmp.location.getLatitude(), tmp.location.getLongitude()};
-						 Log.d("PBS","Send  " +  Double.toString(loc[0]) + ",  " + Double.toString(loc[1]));
-						Intent intent =  new Intent(FoursquareExampleActivity.this, GoogleMapActivity.class);
-						intent.putExtra("location", loc);
-						startActivity(intent);
+						intent =  new Intent(FoursquareExampleActivity.this, NaverMapActivity.class);
 					}
 				
-					
+					intent.putExtra("location", loc);
+					startActivity(intent);
 					
 				}
 	        	

@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, FoursquareExampleActivity!</string>
     <string name="app_name">FoursquareExample</string>
+    <string name="str_done">Complete</string>
 
 </resources>
