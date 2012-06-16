@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout android:id="@id/FrameLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <RelativeLayout android:id="@id/RelativeLayout01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:id="@id/text_gps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50.0px" android:text="GPS 상태 :" />
+            <TextView android:id="@id/text_set_gps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50.0px" android:layout_toRightOf="@id/text_gps" />
+            <TextView android:id="@id/text_internet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="인터넷 상태 :" android:layout_below="@id/text_gps" />
+            <Button android:id="@id/btn_gps" android:layout_width="200.0px" android:layout_height="wrap_content" android:layout_marginTop="15.0px" android:text="GPS 설정" android:layout_below="@id/text_internet" />
+            <Button android:id="@id/btn_internet" android:layout_width="200.0px" android:layout_height="wrap_content" android:layout_marginTop="15.0px" android:text="인터넷 설정" android:layout_toRightOf="@id/btn_gps" android:layout_below="@id/text_internet" />
+            <TextView android:id="@id/text_set_internet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/text_internet" android:layout_below="@id/text_gps" />
+        </RelativeLayout>
+        <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <EditText android:id="@id/EditText01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0px" android:hint="몸무게를 입력하세요." android:singleLine="true" android:phoneNumber="true" />
+            <RadioGroup android:orientation="horizontal" android:id="@id/radio_group" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0px">
+                <RadioButton android:id="@id/kg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="Kg" />
+                <RadioButton android:id="@id/pound" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="lb" />
+            </RadioGroup>
+        </LinearLayout>
+        <Button android:textSize="30.0px" android:textStyle="bold" android:textColor="#ff0000ff" android:layout_gravity="center" android:id="@id/GoButton" android:layout_width="120.0px" android:layout_height="120.0px" android:layout_marginTop="15.0px" android:text="GO" />
+    </LinearLayout>
+</FrameLayout>

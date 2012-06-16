@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <item type="id" name="FrameLayout02">false</item>
+    <item type="id" name="StopButton">false</item>
+    <item type="id" name="TextViewTitle">false</item>
+    <item type="id" name="SeekBar01">false</item>
+    <item type="id" name="LinearLayout03">false</item>
+    <item type="id" name="TextView04">false</item>
+    <item type="id" name="TextView05">false</item>
+    <item type="id" name="TextView07">false</item>
+    <item type="id" name="TextView06">false</item>
+    <item type="id" name="TextView09">false</item>
+    <item type="id" name="TextView08">false</item>
+    <item type="id" name="img_right">false</item>
+    <item type="id" name="FrameLayout01">false</item>
+    <item type="id" name="LinearLayout01">false</item>
+    <item type="id" name="RelativeLayout01">false</item>
+    <item type="id" name="text_gps">false</item>
+    <item type="id" name="text_set_gps">false</item>
+    <item type="id" name="text_internet">false</item>
+    <item type="id" name="btn_gps">false</item>
+    <item type="id" name="btn_internet">false</item>
+    <item type="id" name="text_set_internet">false</item>
+    <item type="id" name="LinearLayout02">false</item>
+    <item type="id" name="EditText01">false</item>
+    <item type="id" name="radio_group">false</item>
+    <item type="id" name="kg">false</item>
+    <item type="id" name="pound">false</item>
+    <item type="id" name="GoButton">false</item>
+    <item type="id" name="FrameLayout04">false</item>
+    <item type="id" name="FrameLayout05">false</item>
+    <item type="id" name="mapview">false</item>
+    <item type="id" name="TextView01">false</item>
+    <item type="id" name="TextView03">false</item>
+    <item type="id" name="TextView02">false</item>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest android:versionCode="1" android:versionName="1.0" package="kr.ggogun.manbogi"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:theme="@android:style/Theme.NoTitleBar" android:label="@string/app_name" android:icon="@drawable/icon">
+        <uses-library android:name="com.google.android.maps" />
+        <activity android:label="@string/app_name" android:name=".Ready" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Running" />
+        <activity android:name="kr.ggogun.manbogi.CreateMap" />
+    </application>
+    <uses-sdk android:minSdkVersion="7" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+</manifest>
+
